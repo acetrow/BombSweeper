@@ -15,5 +15,9 @@ public class BombSquare extends GameSquare
 
 	public void clicked()
 	{
+		if ((thisSquareHasBomb) == true)
+		{
+			setImage("images/bomb.png");
+		}
 	}
 }
