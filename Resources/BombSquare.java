@@ -20,4 +20,19 @@ public class BombSquare extends GameSquare
 			setImage("images/bomb.png");
 		}
 	}
+
+	public void checkBomb()
+	{
+		int bombNumber = 0;
+
+		int[][] coordinate ={	{-1, 1}, {0,1}, {1, 1},
+								{-1, 0}, {0,0}, {1,0},
+								{-1,-1}, {0,-1}, {1,-1}
+							};
+
+		for (int i = 0; i < coordinate.length; i++){
+
+		}
+		
+	}
 }
