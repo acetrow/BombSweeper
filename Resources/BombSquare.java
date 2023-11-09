@@ -20,11 +20,12 @@ public class BombSquare extends GameSquare
 			setImage("images/bomb.png");
 		}
 		else {
-
+			//check how many bombs detected
 			int bombTotal = checkBomb();
 	
 
 			if (bombTotal > 0) {
+				//set image as number of surrounding bombs
 				setImage("images/" + bombTotal + ".png");
 			} else {
 				setImage("images/blank.png");
