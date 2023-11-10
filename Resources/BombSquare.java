@@ -4,6 +4,7 @@ public class BombSquare extends GameSquare
 {
 	private boolean thisSquareHasBomb = false;
 	public static final int MINE_PROBABILITY = 10;
+	private boolean isClicked = false;
 
 	public BombSquare(int x, int y, GameBoard board)
 	{
@@ -15,6 +16,14 @@ public class BombSquare extends GameSquare
 
 	public void clicked()
 	{
+		//a bolean to check if the square has been clicked already
+		if (isClicked) 
+		{
+            return; 
+        }
+
+        isClicked = true;
+
 		if ((thisSquareHasBomb) == true)
 		{
 			setImage("images/bomb.png");
@@ -56,7 +65,8 @@ public class BombSquare extends GameSquare
         	int y = yLocation + yChange;		
 
 			//return a GameSquare object
-			//casting operation - treat results as a BombSquare
+			//casting operation - treat results as a BombSquare object
+			//otherwise, return= error: incompatible types: GameSquare cannot be converted to BombSquare
 			BombSquare surrounding = (BombSquare) board.getSquareAt(x, y);
 
 			if (surrounding != null && surrounding.thisSquareHasBomb) 
@@ -88,23 +98,24 @@ public class BombSquare extends GameSquare
         	int x = xLocation + xChange;
         	int y = yLocation + yChange;		
 
-			//return a GameSquare object
-			//casting operation - treat results as a BombSquare
-			BombSquare surrounding = (BombSquare) board.getSquareAt(x, y);
+			//square (variable GameSquare) is initialized as getSquareAt() results
+			GameSquare square = board.getSquareAt(x, y);
 
-			// while(!surrounding.thisSquareHasBomb && (checkBomb() == 0))
-			// {
-			// 	surrounding.clicked();
-			// }
-			if (surrounding != null)
+			//if not out of board
+            if (square != null) 
 			{
-			surrounding.clicked();
-			}
-			// if (!surrounding.thisSquareHasBomb) 
-			// {
-			// 	surrounding.clicked();
-			// }
-			// checkSpace();
+				//square variable is cast to a BombSquare object
+				//assigned to variable surrounding
+				//allows access to BombSquare methods and properties on the surrounding object
+                BombSquare surrounding = (BombSquare) board.getSquareAt(x, y);
+				//check if the surrounding is already clicked or not containing bomb
+                if (!surrounding.isClicked && !surrounding.thisSquareHasBomb) 
+				{
+					//click the square
+                    surrounding.clicked();
+                }
+            }
+
 			
 			
 		}
