@@ -19,17 +19,19 @@ public class BombSquare extends GameSquare
 		{
 			setImage("images/bomb.png");
 		}
-		else {
+		else 
+		{
 			//check how many bombs detected
 			int bombTotal = checkBomb();
-	
 
 			if (bombTotal > 0) {
 				//set image as number of surrounding bombs
 				setImage("images/" + bombTotal + ".png");
-			} else {
-				setImage("images/blank.png");
-	
+			} 
+			else 
+			{
+				setImage("images/0.png");
+				checkSpace();
 			}
 		}
 	}
@@ -65,5 +67,47 @@ public class BombSquare extends GameSquare
 
 		return bombNumber;
 		
+	}
+
+	private void checkSpace()
+	{
+
+		int[][] coordinate ={	{-1, 1}, {0,1}, {1, 1},
+								{-1, 0}, 		{1,0},
+								{-1,-1}, {0,-1},{1,-1}
+							};
+
+		for (int i = 0; i < coordinate.length; i++)
+		{
+			
+			//declaring every single element in the array (coordinate fom the clicked) as xChange and yChange
+			int xChange = coordinate[i][0];
+        	int yChange = coordinate[i][1];
+			
+			//adding the change to determine position of neighboring squares relative to the current square
+        	int x = xLocation + xChange;
+        	int y = yLocation + yChange;		
+
+			//return a GameSquare object
+			//casting operation - treat results as a BombSquare
+			BombSquare surrounding = (BombSquare) board.getSquareAt(x, y);
+
+			// while(!surrounding.thisSquareHasBomb && (checkBomb() == 0))
+			// {
+			// 	surrounding.clicked();
+			// }
+			if (surrounding != null)
+			{
+			surrounding.clicked();
+			}
+			// if (!surrounding.thisSquareHasBomb) 
+			// {
+			// 	surrounding.clicked();
+			// }
+			// checkSpace();
+			
+			
+		}
+
 	}
 }
